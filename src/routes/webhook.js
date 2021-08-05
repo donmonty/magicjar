@@ -96,14 +96,14 @@ async function callSendAPI(sender_psid, response) {
   };
 
   try {
-    await axios({
-      url: 'https://graph.facebook.com/v2.6/me/messages',
+    axios({
+      url: `https://graph.facebook.com/v2.6/me/messages?access_token=${PAGE_ACCESS_TOKEN}`,
       method: "POST",
-      params: {
-        access_token: PAGE_ACCESS_TOKEN
-      },
-      data: requestBody
-    })
+      data: requestBody,
+      headers: {
+        "Content-type": "application/json"
+      }
+    });
   } catch (error) {
     console.log('Could not send message!')
   }
