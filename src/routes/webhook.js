@@ -91,17 +91,17 @@ function handlePostback(sender_psid, postback) {
 
 function callSendAPI(sender_psid, response) {
   const requestBody = {
-    recipient: {
-      id: sender_psid
+    "recipient": {
+      "id": sender_psid
     },
-    message: response
+    "message": response
   };
 
   request({
-    uri: "https://graph.facebook.com/v2.6/me/messages",
-    qs: { access_token: PAGE_ACCESS_TOKEN },
-    method: "POST",
-    json: requestBody 
+    "uri": "https://graph.facebook.com/v2.6/me/messages",
+    "qs": { access_token: PAGE_ACCESS_TOKEN },
+    "method": "POST",
+    "json": requestBody 
   }, (err, res, body) => {
     if (!err) {
       console.log("Message sent back!");
