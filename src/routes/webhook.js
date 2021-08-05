@@ -1,5 +1,5 @@
 const express = require("express");
-const axios = require("axios");
+const request = require("request");
 
 const router = express.Router();
 
@@ -95,18 +95,18 @@ async function callSendAPI(sender_psid, response) {
     message: response
   };
 
-  try {
-    axios({
-      url: `https://graph.facebook.com/v2.6/me/messages?access_token=${PAGE_ACCESS_TOKEN}`,
-      method: "POST",
-      data: requestBody,
-      headers: {
-        "Content-type": "application/json"
-      }
-    });
-  } catch (error) {
-    console.log('Could not send message!')
-  }
+  request({
+    uri: "https://graph.facebook.com/v2.6/me/messages",
+    qs: { acces_token: PAGE_ACCESS_TOKEN },
+    method: "POST",
+    json: requestBody 
+  }, (err, res, body) => {
+    if (!err) {
+      console.log("Message sent back!");
+    } else {
+      console.log("Couldn't send message!")
+    }
+  });
 
 }
 
