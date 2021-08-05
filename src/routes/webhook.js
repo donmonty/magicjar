@@ -74,11 +74,13 @@ router.get("/test", (req, res) => {
 
 // Functions
 function handleMessage(sender_psid, received_message) {
+  console.log("//// Enter handleMessage...")
   let response;
   if (received_message.text) {
     response = {
       "text": `Tu mensaje fue: ${received_message.text}`
     }
+    console.log("//// The received message was: ", received_message.text)
   }
   callSendAPI(sender_psid, response);
 }
@@ -87,7 +89,7 @@ function handlePostback(sender_psid, postback) {
   return
 }
 
-async function callSendAPI(sender_psid, response) {
+function callSendAPI(sender_psid, response) {
   const requestBody = {
     recipient: {
       id: sender_psid
@@ -97,14 +99,14 @@ async function callSendAPI(sender_psid, response) {
 
   request({
     uri: "https://graph.facebook.com/v2.6/me/messages",
-    qs: { acces_token: PAGE_ACCESS_TOKEN },
+    qs: { access_token: PAGE_ACCESS_TOKEN },
     method: "POST",
     json: requestBody 
   }, (err, res, body) => {
     if (!err) {
       console.log("Message sent back!");
     } else {
-      console.log("Couldn't send message!")
+      console.log("Couldn't send message: ", err)
     }
   });
 
