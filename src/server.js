@@ -1,4 +1,5 @@
 const express = require("express");
+const serverless = require("serverless-http");
 
 const app = express();
 
@@ -6,7 +7,7 @@ const webhook = require("./routes/webhook");
 
 app.use(express.json());
 
-app.use("/webhook", webhook);
+app.use("/.netlify/functions/server", webhook);
 
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   const status = err.status || 500;
@@ -16,3 +17,4 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 });
 
 module.exports = app;
+module.exports.handler = serverless(app);

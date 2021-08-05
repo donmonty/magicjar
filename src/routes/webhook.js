@@ -7,7 +7,7 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
 
 // Routes
-router.post("/", (req, res) => {
+router.post("/webhook", (req, res) => {
   let body = req.body;
 
   // Checks this is an event from a page subscription
@@ -40,7 +40,7 @@ router.post("/", (req, res) => {
   }
 });
 
-router.get("/", (req, res) => {
+router.get("/webhook", (req, res) => {
   // Your verify token. Should be a random string.
   let VERIFY_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJQYXR5IiwibmFtZSI6Ik1hZ2ljIEphciIsImlhdCI6MTUxNjIzOTAyMn0.J6Z6dPuHD2mH1sfTR7nDv4ljwKe3jMBYFUTS6lgqaL0"
     
@@ -65,6 +65,11 @@ router.get("/", (req, res) => {
     }
   }
 });
+
+// Testing only
+router.get("/test", (req, res) => {
+  res.status(200).json({ message: "Netlify is Working OK!" })
+})
 
 
 // Functions
