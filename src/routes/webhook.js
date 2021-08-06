@@ -1,5 +1,6 @@
 const express = require("express");
 const axios = require("axios");
+const selectContent = require("../utils/selectContent");
 
 const router = express.Router();
 
@@ -71,8 +72,13 @@ router.get("/", (req, res) => {
 function handleMessage(sender_psid, received_message) {
   let response;
   if (received_message.text) {
+    // response = {
+    //   "text": `Tu mensaje fue: ${received_message.text}`
+    // }
+
+    const content = selectContent();
     response = {
-      "text": `Tu mensaje fue: ${received_message.text}`
+      text: content.url
     }
   }
   callSendAPI(sender_psid, response);
